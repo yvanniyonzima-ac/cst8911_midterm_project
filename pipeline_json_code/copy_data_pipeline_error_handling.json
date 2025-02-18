@@ -1,0 +1,18 @@
+{
+    "name": "Copy Data Failure Activity",
+    "description": "Error Handling for when the data Copy Data Pipeline Activity Fails",
+    "type": "Fail",
+    "dependsOn": [
+        {
+            "activity": "Copy Data Pipeline Activity",
+            "dependencyConditions": [
+                "Failed"
+            ]
+        }
+    ],
+    "userProperties": [],
+    "typeProperties": {
+        "message": "Copy Data activity failed",
+        "errorCode": "COPY_TO_SQL_ERROR"
+    }
+}

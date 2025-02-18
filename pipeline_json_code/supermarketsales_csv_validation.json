@@ -1,0 +1,14 @@
+{
+    "name": "SuperMarketSalesData Validation",
+    "type": "Validation",
+    "dependsOn": [],
+    "userProperties": [],
+    "typeProperties": {
+        "dataset": {
+            "referenceName": "SuperMarketSalesDataCSV",
+            "type": "DatasetReference"
+        },
+        "timeout": "0.12:00:00",
+        "sleep": 10
+    }
+}

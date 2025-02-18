@@ -1,0 +1,17 @@
+{
+    "name": "SalesData Table Validation Failure",
+    "type": "Fail",
+    "dependsOn": [
+        {
+            "activity": "SalesData Table Validation",
+            "dependencyConditions": [
+                "Failed"
+            ]
+        }
+    ],
+    "userProperties": [],
+    "typeProperties": {
+        "message": "SQL table 'SalesData' does not exist in the target database. Please create the table before running the pipeline",
+        "errorCode": "SQL_TABLE_NOT_FOUND"
+    }
+}

@@ -1,0 +1,233 @@
+{
+    "name": "Copy Data Pipeline Activity",
+    "description": "Copying the data from Sales Market CVS to a SalaesData SQL table",
+    "type": "Copy",
+    "dependsOn": [
+        {
+            "activity": "SalesData Table Validation",
+            "dependencyConditions": [
+                "Succeeded"
+            ]
+        }
+    ],
+    "policy": {
+        "timeout": "0.12:00:00",
+        "retry": 0,
+        "retryIntervalInSeconds": 30,
+        "secureOutput": false,
+        "secureInput": false
+    },
+    "userProperties": [],
+    "typeProperties": {
+        "source": {
+            "type": "DelimitedTextSource",
+            "storeSettings": {
+                "type": "AzureBlobStorageReadSettings",
+                "recursive": true,
+                "enablePartitionDiscovery": false
+            },
+            "formatSettings": {
+                "type": "DelimitedTextReadSettings"
+            }
+        },
+        "sink": {
+            "type": "AzureSqlSink",
+            "writeBehavior": "insert",
+            "sqlWriterUseTableLock": false
+        },
+        "enableStaging": false,
+        "enableSkipIncompatibleRow": true,
+        "validateDataConsistency": true,
+        "logSettings": {
+            "enableCopyActivityLog": true,
+            "copyActivityLogSettings": {
+                "logLevel": "Warning",
+                "enableReliableLogging": false
+            },
+            "logLocationSettings": {
+                "linkedServiceName": {
+                    "referenceName": "group3_cst8911_blob_connection",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        },
+        "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+                {
+                    "source": {
+                        "name": "Ship Mode",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "ShipMode",
+                        "type": "String",
+                        "physicalType": "nvarchar"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Segment",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "Segment",
+                        "type": "String",
+                        "physicalType": "nvarchar"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Country",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "Country",
+                        "type": "String",
+                        "physicalType": "nvarchar"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "City",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "City",
+                        "type": "String",
+                        "physicalType": "nvarchar"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "State",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "State",
+                        "type": "String",
+                        "physicalType": "nvarchar"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Postal Code",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "PostalCode",
+                        "type": "String",
+                        "physicalType": "nvarchar"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Region",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "Region",
+                        "type": "String",
+                        "physicalType": "nvarchar"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Category",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "Category",
+                        "type": "String",
+                        "physicalType": "nvarchar"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Sub-Category",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "SubCategory",
+                        "type": "String",
+                        "physicalType": "nvarchar"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Sales",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "Sales",
+                        "type": "Double",
+                        "physicalType": "float"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Quantity",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "Quantity",
+                        "type": "Int32",
+                        "physicalType": "int"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Discount",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "Discount",
+                        "type": "Double",
+                        "physicalType": "float"
+                    }
+                },
+                {
+                    "source": {
+                        "name": "Profit",
+                        "type": "String",
+                        "physicalType": "String"
+                    },
+                    "sink": {
+                        "name": "Profit",
+                        "type": "Double",
+                        "physicalType": "float"
+                    }
+                }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+                "allowDataTruncation": true,
+                "treatBooleanAsNumber": false
+            }
+        }
+    },
+    "inputs": [
+        {
+            "referenceName": "SuperMarketSalesDataCSV",
+            "type": "DatasetReference"
+        }
+    ],
+    "outputs": [
+        {
+            "referenceName": "Group3SQLSaleData",
+            "type": "DatasetReference"
+        }
+    ]
+}

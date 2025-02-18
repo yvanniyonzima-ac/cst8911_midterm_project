@@ -1,0 +1,21 @@
+{
+    "name": "SalesData Table Validation",
+    "type": "Validation",
+    "dependsOn": [
+        {
+            "activity": "Sales Data Transfromation",
+            "dependencyConditions": [
+                "Succeeded"
+            ]
+        }
+    ],
+    "userProperties": [],
+    "typeProperties": {
+        "dataset": {
+            "referenceName": "Group3SQLSaleData",
+            "type": "DatasetReference"
+        },
+        "timeout": "0.12:00:00",
+        "sleep": 10
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Data Transfromation Failure",
+    "type": "Fail",
+    "dependsOn": [
+        {
+            "activity": "Sales Data Transfromation",
+            "dependencyConditions": [
+                "Failed"
+            ]
+        }
+    ],
+    "userProperties": [],
+    "typeProperties": {
+        "message": "Data Transformation Failed. Verify Data Transformation Flow Activity",
+        "errorCode": "DATA_TRANSFMORATION_FAILED"
+    }
+}

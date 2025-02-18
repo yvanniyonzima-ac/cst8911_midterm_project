@@ -1,0 +1,76 @@
+{
+    "name": "dataTransformation",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "dataset": {
+                        "referenceName": "SuperMarketSalesDataCSV",
+                        "type": "DatasetReference"
+                    },
+                    "name": "SuperMarketDataflowSource"
+                }
+            ],
+            "sinks": [
+                {
+                    "dataset": {
+                        "referenceName": "SuperMarketSalesDataCSV",
+                        "type": "DatasetReference"
+                    },
+                    "name": "SuperMarketSalesDataTransformOutput"
+                }
+            ],
+            "transformations": [
+                {
+                    "name": "sortByProfitAscending",
+                    "description": "Sort Incoming Data by Ascending Profit"
+                },
+                {
+                    "name": "filterEmptyRows"
+                }
+            ],
+            "scriptLines": [
+                "source(output(",
+                "          {Ship Mode} as string,",
+                "          Segment as string,",
+                "          Country as string,",
+                "          City as string,",
+                "          State as string,",
+                "          {Postal Code} as string,",
+                "          Region as string,",
+                "          Category as string,",
+                "          {Sub-Category} as string,",
+                "          Sales as string,",
+                "          Quantity as string,",
+                "          Discount as string,",
+                "          Profit as string",
+                "     ),",
+                "     allowSchemaDrift: false,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false) ~> SuperMarketDataflowSource",
+                "filterEmptyRows sort(asc(Profit, true)) ~> sortByProfitAscending",
+                "SuperMarketDataflowSource filter(!isNull(Sales) && !isNull(Quantity) && !isNull(Discount) && !isNull(Profit)) ~> filterEmptyRows",
+                "sortByProfitAscending sink(allowSchemaDrift: false,",
+                "     validateSchema: false,",
+                "     input(",
+                "          {Ship Mode} as string,",
+                "          Segment as string,",
+                "          Country as string,",
+                "          City as string,",
+                "          State as string,",
+                "          {Postal Code} as string,",
+                "          Region as string,",
+                "          Category as string,",
+                "          {Sub-Category} as string,",
+                "          Sales as string,",
+                "          Quantity as string,",
+                "          Discount as string,",
+                "          Profit as string",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> SuperMarketSalesDataTransformOutput"
+            ]
+        }
+    }
+}

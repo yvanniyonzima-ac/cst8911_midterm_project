@@ -1,0 +1,17 @@
+{
+    "name": "SuperMarketSalesData Blob Validation Failure",
+    "type": "Fail",
+    "dependsOn": [
+        {
+            "activity": "SuperMarketSalesData Validation",
+            "dependencyConditions": [
+                "Failed"
+            ]
+        }
+    ],
+    "userProperties": [],
+    "typeProperties": {
+        "message": "SuperMarketSalesData.csv file does not exist in the specified Blob Storage location. Ensure the file path is correct and the file is uploaded",
+        "errorCode": "CSV_BLOB_NOT_FOUND"
+    }
+}
